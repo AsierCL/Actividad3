@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "estructura.h": "c",
+        "impresoras.h": "c",
+        "lista.h": "c",
+        "impresoras_tipos.h": "c",
+        "cola.h": "c"
+    },
+    "oneDarkPro.vivid": false
+}
