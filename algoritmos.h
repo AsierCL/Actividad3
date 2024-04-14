@@ -6,6 +6,7 @@
 #include "./vectordinamico.h"
 
 
-void Burb1(vectorD *v);
 void bubblesort(vectorD *v, unsigned long int TAM);
+void quicksort(vectorD *pvector, unsigned long beg, unsigned long end);
+void selectionsort(vectorD *v, unsigned long int TAM);
 #endif

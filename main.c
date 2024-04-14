@@ -42,7 +42,6 @@ int main(int argc, char** argv){
         printf("\nOpcion: ");
         scanf(" %c", &opcion); //cuidado con el espacio
         
-        ///system("clear");
         
         switch (opcion) {
             case 'a': 
@@ -126,6 +125,8 @@ int main(int argc, char** argv){
                     printf("Debes crear un vector antes\n");
                     break;
                 }
+                quicksort(&vector, 0, longitud);
+                imprimir(vector);
                 break;
 
             case 'i':
@@ -144,8 +145,8 @@ int main(int argc, char** argv){
                     printf("Debes crear un vector antes\n");
                     break;
                 }
-                j = media(vector);
-                printf("%f",j);
+                selectionsort(&vector, longitud);
+                imprimir(vector);
                 break;
 
             case 'k': 
@@ -156,8 +157,9 @@ int main(int argc, char** argv){
                 
                 srand(time(NULL));
                 for (i = 0; i<longitud; i++){
-                    AsignaVector(&vector, i, (TELEMENTO)(rand()));
+                    AsignaVector(&vector, i, (TELEMENTO)(rand())%100);
                 }
+                ///imprimir(vector);
                 break;
 
             case 's':

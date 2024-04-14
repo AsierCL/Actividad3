@@ -49,7 +49,7 @@ TELEMENTO Componentei(vectorD v1,unsigned long int posicion){
             return *(v1->datos+posicion);
 }
 
-short tamano(vectorD v1){
+unsigned long int tamano(vectorD v1){
     return v1->tam;
 }
 
@@ -75,7 +75,7 @@ TELEMENTO recuperar(vectorD v1, unsigned long int posicion){
             return *(v1->datos+posicion);
 }
 
-short longitudVector(vectorD v1){
+unsigned long int longitudVector(vectorD v1){
     if (!EsNulo(v1)){
         return v1->tam;
     }
