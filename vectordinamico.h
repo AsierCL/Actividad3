@@ -26,6 +26,10 @@ void liberar(vectorD *vectorV1);
 TELEMENTO recuperar(vectorD v1, unsigned long int posicion);
 unsigned long int longitudVector(vectorD v1);
 
+void imprimir(vectorD v1);
+float mediaGeometrica(vectorD v1);
+float media(vectorD v1);
+
 
 
 #endif /*VECTORDINAMICO_H*/

@@ -1,5 +1,7 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 typedef int TELEMENTO;
 
@@ -11,7 +13,7 @@ typedef struct {
 typedef STVECTOR *vectorD;
 
 /*Función CreaVector: asigna memoria y devuelve la asignación al vector*/
-void CreaVector(vectorD *v1, int tam1) {
+void CreaVector(vectorD *v1, unsigned long int tam1) {
     //LiberaVector(v1);
     *v1 = (vectorD) malloc(sizeof (STVECTOR));
     (*v1)->datos = (TELEMENTO*) malloc(tam1 * sizeof (TELEMENTO));
@@ -19,8 +21,8 @@ void CreaVector(vectorD *v1, int tam1) {
 }
 
 /*Función AsignaVector: Llena una posición del vector con un valor*/
-void AsignaVector(vectorD *v1, unsigned long int posicion, TELEMENTO *valor) {
-    *( (*v1) ->datos + posicion) = *valor;
+void AsignaVector(vectorD *v1, unsigned long int posicion, TELEMENTO valor) {
+    *( (*v1) ->datos + posicion) = valor;
 }
 
 
@@ -47,7 +49,7 @@ TELEMENTO Componentei(vectorD v1,unsigned long int posicion){
             return *(v1->datos+posicion);
 }
 
-unsigned long int tamano(vectorD v1){
+short tamano(vectorD v1){
     return v1->tam;
 }
 
@@ -73,8 +75,46 @@ TELEMENTO recuperar(vectorD v1, unsigned long int posicion){
             return *(v1->datos+posicion);
 }
 
-unsigned long int longitudVector(vectorD v1){
+short longitudVector(vectorD v1){
     if (!EsNulo(v1)){
         return v1->tam;
     }
+}
+
+
+void imprimir(vectorD v1){
+    TELEMENTO j;
+    unsigned long int longitud = longitudVector(v1);
+    unsigned long int i;
+    for (i = 0; i<longitud; i++){
+        j = recuperar(v1,i);
+        printf("%d ",j);
+    }
+}
+
+float mediaGeometrica(vectorD v1){
+    TELEMENTO j,resultado;
+    float k;
+    resultado = 1;
+    unsigned long int longitud = longitudVector(v1);
+    unsigned long int i;
+    for (i = 0; i<longitud; i++){
+        j = recuperar(v1,i);
+        resultado *= j;
+    }
+    k = (pow(resultado, 1.0/longitudVector(v1)));
+    return k;
+}
+
+float media(vectorD v1){
+    TELEMENTO j,resultado;
+    resultado = 0;
+    unsigned long int longitud = longitudVector(v1);
+    unsigned long int i;
+    for (i = 0; i<longitud; i++){
+        j = recuperar(v1,i);
+        resultado += j;
+    }
+    j = (resultado/longitudVector(v1));
+    return j;
 }

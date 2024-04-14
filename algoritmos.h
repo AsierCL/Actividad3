@@ -7,5 +7,5 @@
 
 
 void Burb1(vectorD *v);
-void quickSort(vectorD v1, unsigned long int low, unsigned long int high);
+void bubblesort(vectorD *v, unsigned long int TAM);
 #endif

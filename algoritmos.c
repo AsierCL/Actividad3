@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./vectordinamico.h"
+///#define TAM 100
 
-
-#define TAM 100
+/* 
 void Burb1(vectorD *v){
     int e,i,aux;
     for (e=0;e<(TAM-1);e++){
@@ -17,9 +17,6 @@ void Burb1(vectorD *v){
     }
 }
 
-
-
-#include "vectordinamico.h"
 
 void swap(TELEMENTO* p1, TELEMENTO* p2) {
     TELEMENTO temp;
@@ -63,5 +60,47 @@ void quickSort(vectorD v1, unsigned long int low, unsigned long int high) {
         // higher element goes right
         quickSort(v1, low, pi - 1);
         quickSort(v1, pi + 1, high);
+    }
+}
+ */
+void swap (vectorD *pvector, unsigned long m, unsigned long n){
+    TELEMENTO aux, aux2;
+    aux = Componentei(*pvector,m);
+    aux2 = Componentei(*pvector,n);
+    AsignaVector(pvector,m,aux2);
+    AsignaVector(pvector,n,aux);
+}
+
+void bubblesort(vectorD *v, unsigned long int TAM){
+    unsigned long int e, i;
+    TELEMENTO aux;
+    for (e = 0; e < (TAM - 1); e++){
+        for (i = 0; i < (TAM - e - 1); i++){
+            if (Componentei(*v, i) > Componentei(*v, i + 1)){
+                aux = Componentei(*v, i);
+                AsignaVector(v, i, Componentei(*v, i + 1));
+                AsignaVector(v, i + 1, aux);
+            }
+        }
+    }
+}
+
+
+void quicksort(vectorD *pvector, unsigned long beg, unsigned long end){
+    if (end > beg + 1){
+        TELEMENTO piv = Componentei(*pvector, beg);
+        unsigned long l = beg + 1, r = end;
+        while (l < r){
+            if (Componentei(*pvector, l) <= piv){
+                l++;
+            }else{
+                r--;
+                swap(pvector, l, r);
+            }
+        }
+        l--;
+        swap(pvector, l, beg);
+        quicksort(pvector, beg, l);
+        quicksort(pvector, r, end);
     }
 }

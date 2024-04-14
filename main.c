@@ -2,43 +2,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
-#include "vectordinamico.h"
+#include <time.h>
+#include "./vectordinamico.h"
+#include "./algoritmos.h"
 
-void imprimir(vectorD v1){
-    TELEMENTO j;
-    unsigned long int longitud = longitudVector(v1);
-    unsigned long int i;
-    for (i = 0; i<longitud; i++){
-        j = recuperar(v1,i);
-        printf("%f ",j);
-    }
-}
-
-float mediaGeometrica(vectorD v1){
-    TELEMENTO j,resultado;
-    resultado = 1;
-    unsigned long int longitud = longitudVector(v1);
-    unsigned long int i;
-    for (i = 0; i<longitud; i++){
-        j = recuperar(v1,i);
-        resultado *= j;
-    }
-    j = (pow(resultado, 1.0/longitudVector(v1)));
-    return j;
-}
-
-float media(vectorD v1){
-    TELEMENTO j,resultado;
-    resultado = 0;
-    unsigned long int longitud = longitudVector(v1);
-    unsigned long int i;
-    for (i = 0; i<longitud; i++){
-        j = recuperar(v1,i);
-        resultado += j;
-    }
-    j = (resultado/longitudVector(v1));
-    return j;
-}
 
 
 
@@ -50,6 +17,7 @@ int main(int argc, char** argv){
     srand(time(NULL));
     vectorD vector = NULL;
     unsigned long int longitud, i;
+    float j;
     TELEMENTO valor;
     char opcion;
     if (argc>1){
@@ -80,13 +48,13 @@ int main(int argc, char** argv){
             case 'a': 
                 printf("Creand vector...\n");
                 printf("Cual es la longitud del vector? ");
-                scanf(" %hd", &longitud);
+                scanf(" %lu", &longitud);
                 CreaVector(&vector, longitud);
                 
                 for (i = 0; i<longitud; i++){
-                    printf("vector (%hd) ", i);
+                    printf("vector (%lu) ", i);
                     scanf(" %d", &valor);
-                    AsignaVector(&vector, i, &valor);
+                    AsignaVector(&vector, i, valor);
                 }
                 break;
 
@@ -102,11 +70,11 @@ int main(int argc, char** argv){
                     break;
                 }
                 printf("Que posición quires recuperar? ");
-                scanf("%hd", &i);
-                TELEMENTO j;
-                j = recuperar(vector, i);
+                scanf("%lu", &i);
+                TELEMENTO k;
+                k = recuperar(vector, i);
                 if (i < longitudVector(vector)){
-                    printf("%f",j);
+                    printf("%d",k);
                     break;
                 }
                 printf("Esa posición de memoria no está disponible");
@@ -119,7 +87,7 @@ int main(int argc, char** argv){
                     break;
                 }
                 i = longitudVector(vector);
-                printf("%hd",i);
+                printf("%lu",i);
                 break;
 
             case 'e':
@@ -151,14 +119,13 @@ int main(int argc, char** argv){
                 printf("%f",j);
                 break;
 
+///////////////////////////////////////////
             case 'h':
                 printf("Quick sort\n");
                 if (EsNulo(vector)){
                     printf("Debes crear un vector antes\n");
                     break;
                 }
-                j = media(vector);
-                printf("%f",j);
                 break;
 
             case 'i':
@@ -167,8 +134,8 @@ int main(int argc, char** argv){
                     printf("Debes crear un vector antes\n");
                     break;
                 }
-                j = media(vector);
-                printf("%f",j);
+                bubblesort(&vector, longitud);
+                imprimir(vector);
                 break;
 
             case 'j':
@@ -181,15 +148,15 @@ int main(int argc, char** argv){
                 printf("%f",j);
                 break;
 
-            case 'k':
+            case 'k': 
                 printf("Creand vector...\n");
                 printf("Cual es la longitud del vector? ");
-                scanf(" %hd", &longitud);
+                scanf(" %lu", &longitud);
                 CreaVector(&vector, longitud);
                 
+                srand(time(NULL));
                 for (i = 0; i<longitud; i++){
-                    i = rand();
-                    AsignaVector(&vector, i, valor);
+                    AsignaVector(&vector, i, (TELEMENTO)(rand()));
                 }
                 break;
 
