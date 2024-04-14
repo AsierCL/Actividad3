@@ -16,150 +16,87 @@
 int main(int argc, char** argv){
     srand(time(NULL));
     vectorD vector = NULL;
-    unsigned long int longitud, i;
-    float j;
+    unsigned long int longitud, i, j, n;
     TELEMENTO valor;
     char opcion;
-    if (argc>1){
-        longitud = argc - 1;
-        CreaVector(&vector, longitud);
-        
-        for (i = 0; i<longitud; i++){
-            valor = atof(argv[i + 1]);
-            AsignaVector(&vector, i, valor);
-        }
+    clock_t inicio, fin;
+    double tempo_transcurrido;
+
+
+    printf("\n-------------------------------------------------------\n");
+    printf("\nIntroduce el algoritmo de ordenación a utilizar\n");
+    printf("\na) Quicksort");
+    printf("\nb) Bubble sort");
+    printf("\nc) Selection sort");
+    printf("\n-------------------------------------------------------\n");
+    printf("\nOpcion: ");
+    scanf(" %c", &opcion); //cuidado con el espacio
+    
+    printf("\n\n-------------------------------------------------------\n");
+    printf("\nIntroduce el numero de vectores que se crearán\n");
+    printf("\n-------------------------------------------------------\n");
+    printf("\nTamaño: ");
+    scanf(" %lu", &n); //cuidado con el espacio
+
+    /// Creamos o vector de lonxitudes
+    unsigned long int long_vectores[n];
+    
+    printf("\n\n-------------------------------------------------------\n");
+    printf("\nIntroduce el tamaño del vector a ordenar\n");
+    printf("\n-------------------------------------------------------\n");
+    /// Escaneamos o vector de lonxitudes
+    for(j = 0; j<n; j++){
+        printf("Vector %lu: ",j+1);
+        scanf(" %lu", &long_vectores[j]);
     }
 
-    do{
-        printf("\n-------------------------------------------------------\n");
-        printf("\na) Crear vector v                 e) Imprimir vector\n");
-        printf("\nb) Liberar vector v               f) Media geométrica\n");
-        printf("\nc) Recuperar                      g) Media\n ");
-        printf("\nd) Longitud del vector            s) Salir\n\n\n");
-        printf("\nh) Quicksort                      i) Bubblesort\n");
-        printf("\nj) Selecction sort                k) Crear vector aleatorio\n");
-        printf("\n-------------------------------------------------------\n");
-        printf("\nOpcion: ");
-        scanf(" %c", &opcion); //cuidado con el espacio
-        
-        
+
+    /// Repetimos os algoritmos n veces
+    for(j = 0; j<n; j++){
+
+        // Creamos un vector aleatiro
+        CreaVector(&vector, long_vectores[j]);
+        srand(time(NULL));
+        for (i = 0; i<long_vectores[j]; i++){
+            AsignaVector(&vector, i, (TELEMENTO)(rand())%100);
+        }
+
         switch (opcion) {
-            case 'a': 
-                printf("Creand vector...\n");
-                printf("Cual es la longitud del vector? ");
-                scanf(" %lu", &longitud);
-                CreaVector(&vector, longitud);
-                
-                for (i = 0; i<longitud; i++){
-                    printf("vector (%lu) ", i);
-                    scanf(" %d", &valor);
-                    AsignaVector(&vector, i, valor);
+            case 'a':
+                if (EsNulo(vector)){
+                    exit(1);
                 }
+                inicio = clock();
+                quicksort(&vector, 0, long_vectores[j]);
+                fin = clock();
+                tempo_transcurrido = (double)(fin - inicio) / CLOCKS_PER_SEC;
+                printf("O tempo necesario para ordenar o vector %lu foi: %f segundos\n", j+1, tempo_transcurrido);
+
+                //imprimir(vector);
                 break;
 
             case 'b':
-                printf("Liberando vector...\n");
-                liberar(&vector);
+                if (EsNulo(vector)){
+                    exit(1);
+                }
+
+                inicio = clock();
+                bubblesort(&vector, long_vectores[j]);
+                fin = clock();
+                tempo_transcurrido = (double)(fin - inicio) / CLOCKS_PER_SEC;
+                printf("O tempo necesario para ordenar o vector %lu foi: %f segundos\n", j+1, tempo_transcurrido);
                 break;
 
             case 'c':
-                printf("Recuperando posición...\n");
                 if (EsNulo(vector)){
-                    printf("Debes crear un vector antes\n");
-                    break;
+                    exit(1);
                 }
-                printf("Que posición quires recuperar? ");
-                scanf("%lu", &i);
-                TELEMENTO k;
-                k = recuperar(vector, i);
-                if (i < longitudVector(vector)){
-                    printf("%d",k);
-                    break;
-                }
-                printf("Esa posición de memoria no está disponible");
-                break;
 
-            case 'd':
-                printf("Imprimiendo la longitud del vector...\n");
-                if (EsNulo(vector)){
-                    printf("Debes crear un vector antes\n");
-                    break;
-                }
-                i = longitudVector(vector);
-                printf("%lu",i);
-                break;
-
-            case 'e':
-                printf("Imprimiendo el vector...\n");
-                if (EsNulo(vector)){
-                    printf("Debes crear un vector antes\n");
-                    break;
-                }
-                imprimir(vector);
-                break;
-
-            case 'f':
-                printf("Imprimiendo la media geométrica...\n");
-                if (EsNulo(vector)){
-                    printf("Debes crear un vector antes\n");
-                    break;
-                }
-                j = mediaGeometrica(vector);
-                printf("%f",j);
-                break;
-
-            case 'g':
-                printf("Imprimiendo la media...\n");
-                if (EsNulo(vector)){
-                    printf("Debes crear un vector antes\n");
-                    break;
-                }
-                j = media(vector);
-                printf("%f",j);
-                break;
-
-///////////////////////////////////////////
-            case 'h':
-                printf("Quick sort\n");
-                if (EsNulo(vector)){
-                    printf("Debes crear un vector antes\n");
-                    break;
-                }
-                quicksort(&vector, 0, longitud);
-                imprimir(vector);
-                break;
-
-            case 'i':
-                printf("Bubble sort\n");
-                if (EsNulo(vector)){
-                    printf("Debes crear un vector antes\n");
-                    break;
-                }
-                bubblesort(&vector, longitud);
-                imprimir(vector);
-                break;
-
-            case 'j':
-                printf("Selection sort\n");
-                if (EsNulo(vector)){
-                    printf("Debes crear un vector antes\n");
-                    break;
-                }
-                selectionsort(&vector, longitud);
-                imprimir(vector);
-                break;
-
-            case 'k': 
-                printf("Creand vector...\n");
-                printf("Cual es la longitud del vector? ");
-                scanf(" %lu", &longitud);
-                CreaVector(&vector, longitud);
-                
-                srand(time(NULL));
-                for (i = 0; i<longitud; i++){
-                    AsignaVector(&vector, i, (TELEMENTO)(rand())%100);
-                }
-                ///imprimir(vector);
+                inicio = clock();
+                selectionsort(&vector, long_vectores[j]);
+                fin = clock();
+                tempo_transcurrido = (double)(fin - inicio) / CLOCKS_PER_SEC;
+                printf("O tempo necesario para ordenar o vector %lu foi: %f segundos\n", j+1, tempo_transcurrido);
                 break;
 
             case 's':
@@ -171,6 +108,8 @@ int main(int argc, char** argv){
                 printf("La opción es incorrecta");
                 break;
         }
-    } while (opcion != 's');
+        liberar(&vector);
+    }
+
     return(EXIT_SUCCESS);
 }
