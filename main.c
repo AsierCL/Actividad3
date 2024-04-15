@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <math.h>
 #include <time.h>
 #include "./vectordinamico.h"
 #include "./algoritmos.h"
@@ -16,12 +14,18 @@
 int main(int argc, char** argv){
     srand(time(NULL));
     vectorD vector = NULL;
-    unsigned long int longitud, i, j, n;
-    TELEMENTO valor;
+    unsigned long int i, j, n;
     char opcion;
     clock_t inicio, fin;
     double tempo_transcurrido;
 
+    // Abrimos o arquivo en modo anexión
+    FILE *archivo;
+    archivo = fopen("salida.txt","a");
+    if (archivo==NULL){
+        perror("Error al abrir el archivo");
+        exit(1);
+    }
 
     printf("\n-------------------------------------------------------\n");
     printf("\nIntroduce el algoritmo de ordenación a utilizar\n");
@@ -50,18 +54,36 @@ int main(int argc, char** argv){
         scanf(" %lu", &long_vectores[j]);
     }
 
+    switch (opcion){
+        case 'a':
+            system("clear");
+            printf("Quicksort\n");
+            fprintf(archivo,"\n\nQuicksort\n");
+        break;
+        case 'b':
+            system("clear");
+            printf("Bubble sort\n\n");
+            fprintf(archivo,"\n\nBubble sort\n");
+        break;
+        case 'c':
+            system("clear");
+            printf("Selection sort\n\n");
+            fprintf(archivo,"\n\nSelection sort\n");
+        break;
+    default:
+        break;
+    }
 
     /// Repetimos os algoritmos n veces
     for(j = 0; j<n; j++){
 
         // Creamos un vector aleatiro
         CreaVector(&vector, long_vectores[j]);
-        srand(time(NULL));
         for (i = 0; i<long_vectores[j]; i++){
             AsignaVector(&vector, i, (TELEMENTO)(rand()));
         }
 
-        switch (opcion) {
+        switch (opcion){
             case 'a':
                 if (EsNulo(vector)){
                     exit(1);
@@ -71,6 +93,7 @@ int main(int argc, char** argv){
                 fin = clock();
                 tempo_transcurrido = (double)(fin - inicio) / CLOCKS_PER_SEC;
                 printf("O tempo necesario para ordenar o vector %lu foi: %f segundos\n", j+1, tempo_transcurrido);
+                fprintf(archivo,"\n%lu %f",long_vectores[j],tempo_transcurrido);
 
                 //imprimir(vector);
                 break;
@@ -85,6 +108,7 @@ int main(int argc, char** argv){
                 fin = clock();
                 tempo_transcurrido = (double)(fin - inicio) / CLOCKS_PER_SEC;
                 printf("O tempo necesario para ordenar o vector %lu foi: %f segundos\n", j+1, tempo_transcurrido);
+                fprintf(archivo,"\n%lu %f",long_vectores[j],tempo_transcurrido);
                 break;
 
             case 'c':
@@ -97,11 +121,7 @@ int main(int argc, char** argv){
                 fin = clock();
                 tempo_transcurrido = (double)(fin - inicio) / CLOCKS_PER_SEC;
                 printf("O tempo necesario para ordenar o vector %lu foi: %f segundos\n", j+1, tempo_transcurrido);
-                break;
-
-            case 's':
-                printf("Saliendo del programa...\n");
-                liberar(&vector);
+                fprintf(archivo,"\n%lu %f",long_vectores[j],tempo_transcurrido);
                 break;
 
             default:
@@ -111,5 +131,6 @@ int main(int argc, char** argv){
         liberar(&vector);
     }
 
+    fclose(archivo);
     return(EXIT_SUCCESS);
 }
