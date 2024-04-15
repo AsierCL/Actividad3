@@ -58,7 +58,7 @@ int main(int argc, char** argv){
         CreaVector(&vector, long_vectores[j]);
         srand(time(NULL));
         for (i = 0; i<long_vectores[j]; i++){
-            AsignaVector(&vector, i, (TELEMENTO)(rand())%100);
+            AsignaVector(&vector, i, (TELEMENTO)(rand()));
         }
 
         switch (opcion) {
