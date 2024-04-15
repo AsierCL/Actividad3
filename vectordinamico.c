@@ -91,30 +91,3 @@ void imprimir(vectorD v1){
         printf("%d ",j);
     }
 }
-
-float mediaGeometrica(vectorD v1){
-    TELEMENTO j,resultado;
-    float k;
-    resultado = 1;
-    unsigned long int longitud = longitudVector(v1);
-    unsigned long int i;
-    for (i = 0; i<longitud; i++){
-        j = recuperar(v1,i);
-        resultado *= j;
-    }
-    k = (pow(resultado, 1.0/longitudVector(v1)));
-    return k;
-}
-
-float media(vectorD v1){
-    TELEMENTO j,resultado;
-    resultado = 0;
-    unsigned long int longitud = longitudVector(v1);
-    unsigned long int i;
-    for (i = 0; i<longitud; i++){
-        j = recuperar(v1,i);
-        resultado += j;
-    }
-    j = (resultado/longitudVector(v1));
-    return j;
-}

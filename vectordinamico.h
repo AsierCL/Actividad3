@@ -11,10 +11,6 @@ void CreaVector(vectorD *v1,unsigned long int tam1);
 void AsignaVector(vectorD *v1,unsigned long int posicion,TELEMENTO valor);
 
 
-
-
-
-
 TELEMENTO Componentei(vectorD v1,unsigned long int posicion);
 int EsNulo(vectorD v1);
 void LiberaVector(vectorD *v1);
@@ -25,11 +21,7 @@ unsigned long int tamano(vectorD v1);
 void liberar(vectorD *vectorV1);
 TELEMENTO recuperar(vectorD v1, unsigned long int posicion);
 unsigned long int longitudVector(vectorD v1);
-
 void imprimir(vectorD v1);
-float mediaGeometrica(vectorD v1);
-float media(vectorD v1);
-
 
 
 #endif /*VECTORDINAMICO_H*/
