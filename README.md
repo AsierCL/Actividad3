@@ -8,7 +8,7 @@ This code corresponds to an experimental program in which the three most famous 
 ## Usage/Examples
 
 ```bash
-  git clone https://github.com/AsierCL/Printer-Management-Application.git
+  git clone https://github.com/AsierCL/Vector-Sorting-Program.git
   cd Printer-Management-Application/
   make
   ./programa
